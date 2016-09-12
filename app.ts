@@ -1,4 +1,7 @@
-function GetAllBooks() {
+import { Category } from './enums';
+import { Book } from './interfaces';
+
+function GetAllBooks(): Book[] {
     let books = [
         { id: 1, title: 'Ulysses', author: 'James Joyce', available: true, category: Category.Fiction },
         { id: 2, title: 'A Farewell to Arms', author: 'Ernest Hemingway', available: false, category: Category.Fiction },
@@ -24,7 +27,6 @@ function LogFirstAvailable(books = GetAllBooks()): void {
     console.log('firstAvailable ' + firstAvailable);
 }
 
-enum Category {Biography, Poetry, Fiction, History, Children};
 
 function GetBookTitleByCategory (categoryFilter: Category = Category.Fiction): Array<string> {
     console.log('Getting books in category: ' + Category[categoryFilter]);
@@ -109,10 +111,20 @@ function GetTitles(bookProperty: any): string[] {
     return foundTitles;
 }
 
+function PrintBook(book: Book): void {
+    console.log(book.title + ' by ' + book.author);
+}
 //*************************************************************************
 
-let checkOutBooks = GetTitles(false);
-checkOutBooks.forEach(title => console.log(title));
+let myBook: Book= {
+    id: 5,
+    title: 'Pride and Prejudice',
+    author: 'Jane Austen',
+    available: true,
+    category: Category.Fiction,
+    pages: 250,
+    markDamaged: (reason: string) => console.log('Damaged: ' + reason)
+};
 
-// let myBooks: string [] = CheckoutBooks ('Thorne', 1, 3, 4);
-// myBooks.forEach(title => console.log(title));
+PrintBook(myBook);
+myBook.markDamaged('missing cover')
