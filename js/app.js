@@ -1,11 +1,6 @@
 "use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
 var enums_1 = require('./enums');
-var classes_1 = require('./classes');
+var shelf_1 = require('./shelf');
 function GetAllBooks() {
     var books = [
         { id: 1, title: 'Ulysses', author: 'James Joyce', available: true, category: enums_1.Category.Fiction },
@@ -107,34 +102,28 @@ function PrintBook(book) {
     console.log(book.title + ' by ' + book.author);
 }
 //*************************************************************************
-// let ref: ReferenceItem = new ReferenceItem('Updated Facts and Figures', 2012);
-// ref.printItem();
-// ref.publisher = 'Random Data Publisher';
-// console.log(ref.publisher);
-// let refBook: ReferenceItem = new Encyclopedia('Worldpedia', 1900, 10);
-// refBook.printCitation();
-var Newspapaer = (function (_super) {
-    __extends(class_1, _super);
-    function class_1() {
-        _super.apply(this, arguments);
-    }
-    class_1.prototype.printCitation = function () {
-        console.log("Newspapaer: " + this.title);
-    };
-    return class_1;
-}(classes_1.ReferenceItem));
-var myPaper = new Newspapaer('The Gazette', 2016);
-myPaper.printCitation();
-var Novel = (function (_super) {
-    __extends(Novel, _super);
-    function Novel() {
-        _super.apply(this, arguments);
-    }
-    return Novel;
-}((function () {
-    function class_2() {
-    }
-    return class_2;
-}())));
-var favoriteNovel = new Novel();
+var invetory = [
+    { id: 10, title: 'The C Programming Language', author: 'K & R', available: true, category: enums_1.Category.Software },
+    { id: 10, title: 'Code Complete', author: 'Steve McConnell', available: true, category: enums_1.Category.Software },
+    { id: 10, title: '8-Bit Graphics with Cobol', author: 'A. B.', available: true, category: enums_1.Category.Software },
+    { id: 10, title: 'Cool autoexec.bat Scripts!', author: 'C. D.', available: true, category: enums_1.Category.Software }
+];
+// let purgedBooks: Array<Book> = Purge(invetory);
+// purgedBooks.forEach(book => console.log(book.title));
+// let purgedNums: Array<number> = Purge<number>([1, 2, 3, 4]);
+// console.log(purgedNums);
+var bookShelf = new shelf_1.default();
+invetory.forEach(function (book) { return bookShelf.add(book); });
+var firstBook = bookShelf.getFirst();
+var magazines = [
+    { title: 'Programming Language Monthly', publisher: 'Code Mags' },
+    { title: 'Literary Fiction Quarterly', publisher: 'College Press' },
+    { title: 'Five Points', publisher: 'GSU' }
+];
+var magazineShelf = new shelf_1.default();
+magazines.forEach(function (mag) { return magazineShelf.add(mag); });
+var firstMagazine = magazineShelf.getFirst();
+magazineShelf.printTitles();
+var softwareBook = bookShelf.find('Code Complete');
+console.log(softwareBook.title + " (" + softwareBook.author + ")");
 //# sourceMappingURL=app.js.map
